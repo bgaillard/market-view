@@ -33,7 +33,11 @@ lint-fix:  ## Run autoformatters (local)
 	$(POETRY) run isort --atomic **/*.py
 
 run:
-	ENV=local $(POETRY) run $(PYTHON) $(MODULE)/main.py
+	ENV=local $(POETRY) run $(PYTHON) $(MODULE)/cli.py
+run-generate-index-assets:
+	ENV=local $(POETRY) run $(PYTHON) $(MODULE)/cli.py generate-index-assets
+run-serve:
+	ENV=local $(POETRY) run serve
 
 test:  ## Run tests
 ifdef K

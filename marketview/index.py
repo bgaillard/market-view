@@ -3,7 +3,49 @@ from typing import Dict
 # https://www.economie.gouv.fr/facileco/indices-boursiers
 
 # TODO: Etre en capacité de construire les indices automatiquement
-cac_40: Dict = {}
+cac_40: Dict = {
+    "AIR LIQUIDE": "AI.PA",
+    "AIRBUS GROUP": "AIR.PA",
+    "ALSTOM": "ALO.PA",
+    "ARCELORMITTAL": "MT.AS",
+    "AXA": "CS.PA",
+    "BNP PARIBAS": "BNP.PA",
+    "BOUYGUES": "EN.PA",
+    "CAPGEMINI": "CAP.PA",
+    "CARREFOUR": "CA.PA",
+    "CREDIT AGRICOLE": "ACA.PA",
+    "DANONE": "BN.PA",
+    "DASSAULT SYSTEMES": "DSY.PA",
+    "ENGIE": "ENGI.PA",
+    "ESSILORLUXOTTICA": "EL.PA",
+    "EUROFINS SCIENTIFIC": "ERF.PA",
+    "HERMES INTERNATIONAL": "RMS.PA",
+    "KERING": "KER.PA",
+    "LEGRAND": "LR.PA",
+    "L'OREAL": "OR.PA",
+    "LVMH": "MC.PA",
+    "MICHELIN": "ML.PA",
+    "ORANGE": "ORA.PA",
+    "PERNOD RICARD": "RI.PA",
+    "PUBLICIS": "PUB.PA",
+    "RENAULT": "RNO.PA",
+    "SAFRAN": "SAF.PA",
+    "SAINT-GOBAIN": "SGO.PA",
+    "SANOFI": "SAN.PA",
+    "SCHNEIDER ELECTRIC": "SU.PA",
+    "SOCIETE GENERALE": "GLE.PA",
+    "STELLANTIS": "STLA.PA",
+    "STMICROELECTRONICS": "STM.PA",
+    "TELEPERFORMANCE": "TEP.PA",
+    "THALES": "HO.PA",
+    "TOTALENERGIES": "TTE.PA",
+    "UNIBAIL-RODAMCO-WESTFIELD": "URW.AS",
+    "VEOLIA ENVIRONNEMENT": "VIE.PA",
+    "VINCI": "DG.PA",
+    "VIVENDI SE": "VIV.PA",
+    "WORLDLINE": "WLN.PA",
+}
+
 cac_next_20: Dict = {}
 sbf_80: Dict = {}
 cac_mid_60 = {}
@@ -98,6 +140,7 @@ sbf_120: Dict = {
     "RUBIS": "RUI.PA",
     "SAFRAN": "SAF.PA",
     "SAINT-GOBAIN": "SGO.PA",
+    "SAFRAN": "SAF.PA",
     "SANOFI": "SAN.PA",
     "SARTORIUS STEDIM BIOTECH": "DIM.PA",
     "SCHNEIDER ELECTRIC": "SU.PA",

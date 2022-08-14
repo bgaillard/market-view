@@ -1,5 +1,4 @@
 import os
-import sys
 
 import yfinance as yf
 from matplotlib.figure import Figure
@@ -7,7 +6,8 @@ from pandas.core.frame import DataFrame
 
 from marketview.excel_builder import ExcelBuilder
 from marketview.file_utils import get_ticker_directory
-from marketview .sbf_120 import index as sbf_120_index
+
+from marketview import index
 
 # Sample file hierarchy for "ACCOR"
 #
@@ -39,7 +39,7 @@ from marketview .sbf_120 import index as sbf_120_index
 excel_builder: ExcelBuilder = ExcelBuilder()
 excel_builder.start(index="sbf-120")
 
-for name, tk in sbf_120_index.items():
+for name, tk in index.sbf_120.items():
     period: str = "5y"
     ticker: yf.Ticker = yf.Ticker(ticker=tk)
     hist: DataFrame = ticker.history(period=period)
@@ -61,7 +61,7 @@ for name, tk in sbf_120_index.items():
     #  print(f"Unbiased variance: {hist['Close'].var()}")
 
     # TODO: DMI & ADX
-    # https://www.analyse-technique-boursiere.fr/indicateur/dmi
+   # https://www.analyse-technique-boursiere.fr/indicateur/dmi
     excel_builder.add_indicators(company=name, ticker=tk, standard_deviation=hist['Close'].std(), unbiased_variance=hist['Close'].var())
 
     png_file: str = os.path.join(ticker_directory, f"{period}.png")
