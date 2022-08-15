@@ -1,5 +1,4 @@
 import os
-from typing import Optional
 
 import pandas as pd
 from pandas.io.excel._xlsxwriter import XlsxWriter

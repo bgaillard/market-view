@@ -2,7 +2,11 @@ from fastapi import FastAPI
 from typing import Any, Dict
 import uvicorn
 
+from marketview.router.company_router import router as company_router
+
 app = FastAPI()
+
+app.include_router(company_router)
 
 
 @app.get("/")

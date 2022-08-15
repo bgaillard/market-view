@@ -8,6 +8,7 @@ MAKEFLAGS += --no-builtin-rules
 
 # Vars
 
+FLYWAY := flyway
 POETRY := poetry
 PYTHON := python
 
@@ -15,6 +16,9 @@ clear:  ## Clear local env
 	find . -type f -name '*.py[co]' -delete -o -type d -name __pycache__ -delete
 	rm -Rf .mypy_cache
 	rm -Rf .pytest_cache
+
+db-migrate: ## Execution the database migration scripts
+	flyway migrate
 
 install: ## Install dependencies
 	$(POETRY) install
@@ -34,10 +38,10 @@ lint-fix:  ## Run autoformatters (local)
 
 run:
 	ENV=local $(POETRY) run $(PYTHON) $(MODULE)/cli.py
-run-generate-index-assets:
-	ENV=local $(POETRY) run $(PYTHON) $(MODULE)/cli.py generate-index-assets
+run-generate-assets:
+	ENV=local $(POETRY) run $(PYTHON) $(MODULE)/cli.py generate-assets
 run-serve:
-	ENV=local $(POETRY) run serve
+	ENV=local $(POETRY) run $(PYTHON) $(MODULE)/cli.py serve
 
 test:  ## Run tests
 ifdef K
