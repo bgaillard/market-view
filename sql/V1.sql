@@ -7,11 +7,11 @@ CREATE TABLE company (
   ticker             VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE history (
-  id            INTEGER  PRIMARY KEY AUTOINCREMENT,
-  creation_date DATETIME NOT NULL,
-  update_date   DATETIME NOT NULL,
-  company_id    INTEGER  NOT NULL,
+CREATE TABLE day_point_close (
+  id            INTEGER    PRIMARY KEY AUTOINCREMENT,
+  date          DATE       NOT NULL,
+  value         REAL       NOT NULL,
+  company_id    INTEGER    NOT NULL,
   FOREIGN KEY(company_id) REFERENCES company(id)
 );
 
@@ -30,6 +30,9 @@ CREATE TABLE company_market_index(
 );
 
 -- Indices
+--
+-- https://finance.yahoo.com/world-indices/
+-- https://www.investing.com/indices/france-indices
 INSERT INTO market_index(id, creation_date, update_date, name)
 VALUES
 (1, "2022-08-15T09:00:00.000000", "2022-08-15T09:00:00.000000", "CAC 40"),
@@ -41,6 +44,8 @@ VALUES
 (7, "2022-08-15T09:00:00.000000", "2022-08-15T09:00:00.000000", "SBF 120");
 
 -- Companies
+--
+-- https://github.com/mlapenna7/yh_symbol_universe
 INSERT INTO company(id, creation_date, update_date, name, ticker)
 VALUES
 (1,  "2022-08-15T09:00:00.000000", "2022-08-15T09:00:00.000000", "AIR LIQUIDE",               "AI.PA"),
@@ -86,6 +91,8 @@ VALUES
 
 INSERT INTO company_market_index(company_id, market_index_id)
 VALUES
+
+-- CAC 40
 (1, 1),
 (1, 2),
 (1, 3),

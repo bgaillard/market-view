@@ -36,44 +36,49 @@ from marketview import index
 
 # Excel : https://xlsxwriter.readthedocs.io/working_with_pandas.html
 
-excel_builder: ExcelBuilder = ExcelBuilder()
-excel_builder.start(index="sbf-120")
 
-for name, tk in index.sbf_120.items():
-    period: str = "5y"
-    ticker: yf.Ticker = yf.Ticker(ticker=tk)
-    hist: DataFrame = ticker.history(period=period)
+def generate_all() -> None:
+    excel_builder: ExcelBuilder = ExcelBuilder()
+    excel_builder.start(index="sbf-120")
 
-    ticker_directory: str = get_ticker_directory(ticker=tk)
-    os.makedirs(name=ticker_directory, exist_ok=True)
+    for name, tk in index.sbf_120.items():
+        period: str = "5y"
+        ticker: yf.Ticker = yf.Ticker(ticker=tk)
+        hist: DataFrame = ticker.history(period=period)
 
-    dataframe_file: str = os.path.join(ticker_directory, f"{tk}_{period}_dataframe.csv")
-    hist.to_csv(path_or_buf=dataframe_file)
+        ticker_directory: str = get_ticker_directory(ticker=tk)
+        os.makedirs(name=ticker_directory, exist_ok=True)
 
-    plot = hist.plot(y="Close", kind="line", title=name)
-    fig: Figure = plot.get_figure()
+        dataframe_file: str = os.path.join(ticker_directory, f"{tk}_{period}_dataframe.csv")
+        hist.to_csv(path_or_buf=dataframe_file)
+
+        plot = hist.plot(y="Close", kind="line", title=name)
+        fig: Figure = plot.get_figure()
+
+        print(hist)
+        #  print(type(hist))
+        #  print(type(plot))
+
+        #  print(f"Standard deviation: {hist['Close'].std()}")
+        #  print(f"Unbiased variance: {hist['Close'].var()}")
+
+        # TODO: DMI & ADX
+        # https://www.analyse-technique-boursiere.fr/indicateur/dmi
+        excel_builder.add_indicators(
+            company=name, ticker=tk, standard_deviation=hist['Close'].std(), unbiased_variance=hist['Close'].var()
+        )
+
+        png_file: str = os.path.join(ticker_directory, f"{period}.png")
+        fig.savefig(png_file)
+
+    excel_builder.end()
+
+
+def generate_for_company(ticker: str, period: str) -> None:
+    tk: yf.Ticker = yf.Ticker(ticker=ticker)
+    hist: DataFrame = tk.history(period=period)
 
     print(hist)
-    #  print(type(hist))
-    #  print(type(plot))
-
-    #  print(f"Standard deviation: {hist['Close'].std()}")
-    #  print(f"Unbiased variance: {hist['Close'].var()}")
-
-    # TODO: DMI & ADX
-    # https://www.analyse-technique-boursiere.fr/indicateur/dmi
-    excel_builder.add_indicators(
-        company=name, ticker=tk, standard_deviation=hist['Close'].std(), unbiased_variance=hist['Close'].var()
-    )
-
-    png_file: str = os.path.join(ticker_directory, f"{period}.png")
-    fig.savefig(png_file)
-
-excel_builder.end()
-
-
-def generate_for_company(company: str, period: str) -> None:
-    print("For company!")
 
 
 def generate_for_index(index: str, period: str) -> None:
